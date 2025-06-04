@@ -22,8 +22,7 @@ const wss = new WebSocketServer({ server });
 const PORT = 3001;
 
 
-
-// ---------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------
 const words = [
   "bouteille", "montagne", "voiture", "cerise", "foret",
   "nuage", "girafe", "maison", "chocolat", "bateau",
@@ -67,7 +66,7 @@ function broadcastToRoom(roomId: string, data: any) {
     }
   });
 }
-// --------------------
+
 app.post('/create-room', (_req, res) => {
   const roomId = Math.random().toString(36).substring(2, 8);
   res.json({ roomId });
@@ -188,7 +187,7 @@ wss.on('connection', (ws) => {
         });
       }
 
-      // --- Rejouer ---
+      // ------ Rejouer ------
       else if (data.type === 'replay' && currentRoomId) {
         console.log(`🔁 Rejouer demandé dans la room ${currentRoomId}`);
         const room = rooms[currentRoomId];
@@ -256,7 +255,7 @@ wss.on('connection', (ws) => {
 });
 
 
-// --------------------
+// -----------------------
 server.listen(PORT, () => {
   console.log(`Serveur lancé sur http://localhost:${PORT}`);
 });
