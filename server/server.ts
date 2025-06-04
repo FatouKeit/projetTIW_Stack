@@ -24,7 +24,18 @@ const PORT = 3001;
 
 
 // ---------------------------------------------------------------------------------------------------
-const words = ['javascript', 'react', 'typescript', 'vite', 'express', 'websocket', 'tailwind'];
+const words = [
+  "bouteille", "montagne", "voiture", "cerise", "foret",
+  "nuage", "girafe", "maison", "chocolat", "bateau",
+  "musique", "television", "etoile", "glace", "stylo",
+  "crayon", "fenetre", "chaise", "orange", "piscine",
+  "ballon", "camion", "pluie", "neige", "livre",
+  "velo", "pomme", "parfum", "coussin", "valise",
+  "lampe", "chapeau", "muraille", "chateau", "cactus",
+  "savon", "ballerine", "tigre", "brosse", "colombe",
+  "miroir", "panier", "puzzle", "jardin", "feuille",
+  "abricot", "souris", "avion", "lune", "ciel"
+];
 
 type Player = {
   id: string;
@@ -56,7 +67,7 @@ function broadcastToRoom(roomId: string, data: any) {
     }
   });
 }
-
+// --------------------
 app.post('/create-room', (_req, res) => {
   const roomId = Math.random().toString(36).substring(2, 8);
   res.json({ roomId });
@@ -244,6 +255,8 @@ wss.on('connection', (ws) => {
   });
 });
 
+
+// --------------------
 server.listen(PORT, () => {
   console.log(`Serveur lancé sur http://localhost:${PORT}`);
 });

@@ -1,4 +1,4 @@
-// types.ts
+
 export interface GameState  {
   targetWord: string;
   guessedLetters: string[];
