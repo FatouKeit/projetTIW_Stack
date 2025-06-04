@@ -8,6 +8,7 @@ type GameState = {
   isLost: boolean;
   currentTurn: 'player1' | 'player2';
   secretWord?: string;
+  scores?: { role: 'player1' | 'player2', score: number }[];
 };
 
 export const useGameSync = (roomId: string) => {
@@ -64,6 +65,7 @@ export const useGameSync = (roomId: string) => {
             isLost: data.isLost,
             currentTurn: data.currentTurn,
             secretWord: data.secretWord,
+            scores: data.scores,
           });
           break;
 

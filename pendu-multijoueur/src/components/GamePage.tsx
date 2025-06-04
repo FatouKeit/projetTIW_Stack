@@ -15,6 +15,7 @@ export default function GamePage() {
   const [role, setRole] = useState<'player1' | 'player2' | null>(null);
   const [currentTurn, setCurrentTurn] = useState<'player1' | 'player2' | null>(null);
   const [isOpponentDisconnected, setIsOpponentDisconnected] = useState(false);
+  const [scores, setScores] = useState<{ role: string; score: number }[]>([]);
   const navigate = useNavigate();
 
   const wsRef = useRef<WebSocket | null>(null);
@@ -69,6 +70,7 @@ export default function GamePage() {
           setIsWon(data.isWon);
           setIsLost(data.isLost);
           setCurrentTurn(data.currentTurn);
+          setScores(data.scores || []);
 
 const localRole = sessionStorage.getItem('role');
 if (data.isWon) {
@@ -178,7 +180,23 @@ if (data.isWon) {
         {/* Si le rôle est défini, on affiche aussi le statut */}
         {role && <h2 className="text-xl font-semibold text-center">{status}</h2>}
 
-        <LePendu wrongGuesses={wrongGuesses} maxTries={maxWrongGuesses} />
+        <div className="flex items-start gap-10">
+  {/* Bloc score à gauche */}
+  <div className="text-center mt-4">
+    <h3 className="text-lg font-semibold mb-2">SCORE :</h3>
+    <div className="grid grid-cols-2 border border-gray-300 rounded-lg overflow-hidden text-sm">
+      <div className="bg-gray-200 px-4 py-2 font-medium">J1</div>
+      <div className="bg-gray-200 px-4 py-2 font-medium">J2</div>
+      <div className="px-4 py-2">{scores.find(p => p.role === 'player1')?.score ?? 0}</div>
+      <div className="px-4 py-2">{scores.find(p => p.role === 'player2')?.score ?? 0}</div>
+    </div>
+  </div>
+
+  {/* Pendu à droite */}
+  <LePendu wrongGuesses={wrongGuesses} maxTries={maxWrongGuesses} />
+</div>
+
+
 
         <div className="text-3xl font-mono tracking-widest">
           {displayWord.split('').join(' ')}
@@ -217,12 +235,7 @@ if (data.isWon) {
                 Rejouer
               </button>
             )}
-            <button
-              onClick={handleGoHome}
-              className="px-4 py-2 bg-gray-500 text-black rounded hover:bg-gray-600"
-            >
-              Accueil
-            </button>
+
           </div>
         )}
       </div>

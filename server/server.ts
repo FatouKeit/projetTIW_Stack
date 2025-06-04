@@ -30,6 +30,7 @@ type Player = {
   id: string;
   ws: WebSocket;
   role: 'player1' | 'player2';
+  score : number
 };
 
 type Room = {
@@ -95,7 +96,7 @@ wss.on('connection', (ws) => {
         }
 
         playerRole = room.players.length === 0 ? 'player1' : 'player2';
-        room.players.push({ id: playerRole, ws, role: playerRole });
+        room.players.push({ id: playerRole, ws, role: playerRole, score: 0, });
 
         console.log(`Joueur ${playerRole} connecté à la room ${roomId}`);
 
@@ -146,7 +147,10 @@ wss.on('connection', (ws) => {
         room.guessedLetters.push(letter);
         if (!room.secretWord.includes(letter)) {
           room.wrongGuesses++;
-        }
+        } else {
+  const occurrences = room.secretWord.split('').filter(l => l === letter).length;
+  player.score += occurrences; 
+}
 
         const displayWord = room.secretWord
           .split('')
@@ -169,6 +173,7 @@ wss.on('connection', (ws) => {
           isLost,
           currentTurn: room.currentTurn,
           secretWord: isLost ? room.secretWord : undefined,
+          scores: room.players.map(p => ({ role: p.role, score: p.score })),
         });
       }
 
@@ -182,6 +187,7 @@ wss.on('connection', (ws) => {
         room.guessedLetters = [];
         room.wrongGuesses = 0;
         room.currentTurn = 'player1';
+        room.players.forEach(p => p.score = 0);
 
         const displayWord = room.secretWord.split('').map(() => '_').join('');
 
