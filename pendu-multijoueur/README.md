@@ -1,54 +1,30 @@
-# React + TypeScript + Vite
+# Jeu du Pendu Multijoueur – Projet TIW Web Stack
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ce projet est une application web multijoueur du jeu du pendu, développée avec **Node.js**, **WebSocket**, **React** et **Tailwind CSS**.
 
-Currently, two official plugins are available:
+## Fonctionnement général
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Le jeu se déroule en 3 étapes principales :
 
-## Expanding the ESLint configuration
+1. **HomePage** :  
+   - Page d'accueil où le joueur peut créer une partie.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+2. **RoomPage** :  
+   - Une salle d'attente s'affiche jusqu'à ce que **deux(02) joueurs** soient connectés.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+3. **GamePage** :  
+   - Le jeu commence : les joueurs jouent **à tour de rôle**.
+   - Chaque lettre trouvée rapporte **1 point**.
+   - Le **score de chaque joueur** est affiché dans un tableau.
+   - Les joueurs gagnent ou perdent ensemble.
+   - Lorsqu'un joueur quitte le jeu, l’**autre est automatiquement averti**.
+   - Un bouton permet de **rejouer** une nouvelle partie avec un mot différent.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tester l'application
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Le projet peut être lancé en mode développement ou en version production compilée dans le dossier `dist`.  
+Configuration deja établie dans server.ts, PORT : 3001.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+---
+
+> Réalisé par **Fatoumata KEITA** et **Yannick COMPAORE** – Master TIW en TWSMD.
